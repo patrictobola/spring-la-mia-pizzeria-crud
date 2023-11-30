@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner{
 	
-	private static final String IMG_URL = "https://picsum.photos/200/300";
+	private static final String IMG_URL = "https://picsum.photos/seed/picsum/50";
 	
 	@Autowired
 	private PizzaService pizzaService;

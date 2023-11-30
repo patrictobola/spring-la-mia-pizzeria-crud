@@ -8,35 +8,29 @@
 </head>
 
 <body>
+	<h1 th:if="${pizzas.size() == 0}" class="text-center mt-5">NON CI SONO PIZZE!</h1>
+	<div class="container" th:if="${pizzas.size() > 0}">
 	<h1 class="text-center">Lista delle pizze</h1>
-	<div class="container">
 		
 	<table class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">Pizza</th>
+      <th scope="col">Ingredienti</th>
+      <th scope="col">Prezzo</th>
+      <th scope="col">Foto</th>
+      <th scope="col">Show</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
+	  <tr th:each="pizza : ${pizzas}">
+      <td>[[${pizza.id}]]</th>
+      <td>[[${pizza.name}]]</td>
+      <td>[[${pizza.description}]]</th>
+      <td>[[${pizza.price}]]</th>
+      <td><img th:src="${pizza.photo}"></td>
+      <td><a class="btn btn-primary" th:href="@{/pizza/{id}(id=${pizza.id})}">Show</a></td>
     </tr>
   </tbody>
 </table>
