@@ -11,7 +11,11 @@
 	<h1 th:if="${pizzas.size() == 0}" class="text-center mt-5">NON CI SONO PIZZE!</h1>
 	<div class="container" th:if="${pizzas.size() > 0}">
 	<h1 class="text-center">Lista delle pizze</h1>
-		
+		<form>
+			<label>Cerca quì la tua pizza: </label>
+			<input type="text" id="pizza" name="q">
+			<button class="btn btn-primary">Search</button>
+		</form>
 	<table class="table">
   <thead>
     <tr>
