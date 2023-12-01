@@ -24,6 +24,7 @@ public class MainController {
 				? pizzaRepository.findAll()
 				: pizzaRepository.findByNameContainingIgnoreCase(q);
 		model.addAttribute("pizzas", result);
+		model.addAttribute("q", q == null ? "" : q);
 		return "index";
 	}
 

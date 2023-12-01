@@ -12,8 +12,8 @@
 	<div class="container" th:if="${pizzas.size() > 0}">
 	<h1 class="text-center">Lista delle pizze</h1>
 		<form>
-			<label>Cerca quì la tua pizza: </label>
-			<input type="text" id="pizza" name="q">
+			<label for="pizza">Cerca quì la tua pizza: </label>
+			<input type="text" id="pizza" name="q" th:value="${q}">
 			<button class="btn btn-primary">Search</button>
 		</form>
 	<table class="table">
