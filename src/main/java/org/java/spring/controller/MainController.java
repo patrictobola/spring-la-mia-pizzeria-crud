@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,7 +57,12 @@ public class MainController {
 			@Valid @ModelAttribute("pizza") Pizza formPizza,
 			BindingResult bindingResult) {
 		if(bindingResult.hasErrors()){
-			return "/pizza/create";
+			System.out.println("Errori di validazione:");
+	        for (FieldError error : bindingResult.getFieldErrors()) {
+	            System.out.println("Campo: " + error.getField() + ". Messaggio: " + error.getDefaultMessage());
+	        }
+		    model.addAttribute("pizza", formPizza);
+			return "create";
 			}
 		
 		pizzaRepository.save(formPizza);
