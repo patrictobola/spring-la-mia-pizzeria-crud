@@ -24,11 +24,8 @@ public class MainController {
 	private PizzaRepository pizzaRepository;
 
 	@GetMapping("/")
-	public String homepage(Model model, 
-			@RequestParam(required = false) String q) {
-		List<Pizza> result = q == null
-				? pizzaRepository.findAll()
-				: pizzaRepository.findByNameContainingIgnoreCase(q);
+	public String homepage(Model model, @RequestParam(required = false) String q) {
+		List<Pizza> result = q == null ? pizzaRepository.findAll() : pizzaRepository.findByNameContainingIgnoreCase(q);
 		model.addAttribute("pizzas", result);
 		model.addAttribute("q", q == null ? "" : q);
 		return "index";
@@ -42,31 +39,52 @@ public class MainController {
 	}
 
 	private Pizza getPizzaById(int id) {
-		List<Pizza> pizzas = pizzaRepository.findAll();
-		return pizzas.stream().filter(pizza -> pizza.getId() == id).findFirst().orElse(null);
+		return pizzaRepository.findById(id).orElse(null);
 	}
-	
+
 	@GetMapping("/pizza/create")
 	public String createPizza(Model model) {
 		model.addAttribute("pizza", new Pizza());
 		return "create";
 	}
-	
+
 	@PostMapping("/pizza/create")
-	public String newPizza(Model model,
-			@Valid @ModelAttribute("pizza") Pizza formPizza,
-			BindingResult bindingResult) {
-		if(bindingResult.hasErrors()){
+	public String newPizza(Model model, @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
 			System.out.println("Errori di validazione:");
-	        for (FieldError error : bindingResult.getFieldErrors()) {
-	            System.out.println("Campo: " + error.getField() + ". Messaggio: " + error.getDefaultMessage());
-	        }
-		    model.addAttribute("pizza", formPizza);
-			return "create";
+			for (FieldError error : bindingResult.getFieldErrors()) {
+				System.out.println("Campo: " + error.getField() + ". Messaggio: " + error.getDefaultMessage());
 			}
-		
+			model.addAttribute("pizza", formPizza);
+			return "create";
+		}
+
 		pizzaRepository.save(formPizza);
 		return "redirect:/";
 	}
-	
+
+	@GetMapping("/pizza/edit/{id}")
+	public String editPizza(@PathVariable("id") int id, Model model) {
+		Pizza selectedPizza = getPizzaById(id);
+		model.addAttribute("pizza", selectedPizza);
+		return "edit";
+	}
+
+	@PostMapping("/pizza/edit/{id}")
+	public String storePizza(Model model, @Valid @ModelAttribute("pizza") Pizza editPizza,
+			BindingResult bindingResult) {
+
+		if (bindingResult.hasErrors()) {
+			System.out.println("Errori di validazione:");
+			for (FieldError error : bindingResult.getFieldErrors()) {
+				System.out.println("Campo: " + error.getField() + ", messaggio: " + error.getDefaultMessage());
+			}
+			model.addAttribute("pizza", editPizza);
+			return "edit";
+		}
+		pizzaRepository.save(editPizza);
+		return "redirect:/";
+
+	}
+
 }

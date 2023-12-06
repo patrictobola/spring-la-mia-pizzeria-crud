@@ -24,7 +24,7 @@
       <th scope="col">Ingredienti</th>
       <th scope="col">Prezzo</th>
       <th scope="col">Foto</th>
-      <th scope="col">Show</th>
+      <th scope="col">Options</th>
     </tr>
   </thead>
   <tbody>
@@ -34,7 +34,9 @@
       <td>[[${pizza.description}]]</th>
       <td>[[${pizza.price}]]</th>
       <td><img th:src="${pizza.photo}"></td>
-      <td><a class="btn btn-primary" th:href="@{/pizza/{id}(id=${pizza.id})}">Show</a></td>
+      <td><a class="btn btn-primary" th:href="@{/pizza/{id}(id=${pizza.id})}">Show</a>
+      <a class="btn btn-warning" th:href="@{/pizza/edit/{id}(id=${pizza.id})}">Edit</a>
+      <a class="btn btn-danger" th:href="@{/pizza/{id}(id=${pizza.id})}">Delete</a></td>
     </tr>
   </tbody>
 </table>
