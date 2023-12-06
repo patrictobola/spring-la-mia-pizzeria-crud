@@ -45,7 +45,7 @@ public class MainController {
 	@GetMapping("/pizza/create")
 	public String createPizza(Model model) {
 		model.addAttribute("pizza", new Pizza());
-		return "create";
+		return "create-edit";
 	}
 
 	@PostMapping("/pizza/create")
@@ -56,7 +56,7 @@ public class MainController {
 				System.out.println("Campo: " + error.getField() + ". Messaggio: " + error.getDefaultMessage());
 			}
 			model.addAttribute("pizza", formPizza);
-			return "create";
+			return "create-edit";
 		}
 
 		pizzaRepository.save(formPizza);
@@ -67,7 +67,7 @@ public class MainController {
 	public String editPizza(@PathVariable("id") int id, Model model) {
 		Pizza selectedPizza = getPizzaById(id);
 		model.addAttribute("pizza", selectedPizza);
-		return "edit";
+		return "create-edit";
 	}
 
 	@PostMapping("/pizza/edit/{id}")
@@ -80,7 +80,7 @@ public class MainController {
 				System.out.println("Campo: " + error.getField() + ", messaggio: " + error.getDefaultMessage());
 			}
 			model.addAttribute("pizza", editPizza);
-			return "edit";
+			return "create-edit";
 		}
 		pizzaRepository.save(editPizza);
 		return "redirect:/";
