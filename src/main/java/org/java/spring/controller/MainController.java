@@ -25,7 +25,7 @@ public class MainController {
 
 	@GetMapping("/")
 	public String homepage(Model model, @RequestParam(required = false) String q) {
-		List<Pizza> result = q == null ? pizzaRepository.findAll() : pizzaRepository.findByNameContainingIgnoreCase(q);
+		List<Pizza> result = q == null ? pizzaRepository.findByDeleted(false) : pizzaRepository.findByNameContainingIgnoreCase(q);
 		model.addAttribute("pizzas", result);
 		model.addAttribute("q", q == null ? "" : q);
 		return "index";

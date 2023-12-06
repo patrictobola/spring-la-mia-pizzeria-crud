@@ -31,12 +31,17 @@ public class Pizza {
     @Positive(message = "Il prezzo deve essere maggiore di 0")
 	private Float price;
 	
+	
+	private boolean deleted;
+	
 	public Pizza() {}
+	
 	public Pizza(String name, String description, String photo, float price) {
 		setName(name);
 		setDescription(description);
 		setPhoto(photo);
 		setPrice(price);
+		setDeleted(false);
 	}
 	
 
@@ -79,7 +84,12 @@ public class Pizza {
 	public void setPrice(Float price) {
 		this.price = price;
 	}
-
+	public boolean isDeleted() {
+		return deleted;
+	}
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
 	@Override
 	public String toString() {
 

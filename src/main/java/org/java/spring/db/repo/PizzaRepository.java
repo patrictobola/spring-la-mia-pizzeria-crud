@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PizzaRepository extends JpaRepository<Pizza, Integer>{
 	List<Pizza> findByNameContainingIgnoreCase(String searchTerm);
+	List<Pizza> findByDeleted(boolean deletedValue);
 }
