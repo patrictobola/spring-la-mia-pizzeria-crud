@@ -7,6 +7,8 @@ import org.java.spring.db.repo.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class PizzaService {
 	
@@ -19,6 +21,10 @@ public class PizzaService {
 	public Pizza findById(int id) {
 		return pizzaRepository.findById(id).get();
 	}
+    @Transactional
+    public void softDeletePizza(int id) {
+        pizzaRepository.softDeleteById(id);
+    }
 	public void save(Pizza pizza) {
 		pizzaRepository.save(pizza);
 	}

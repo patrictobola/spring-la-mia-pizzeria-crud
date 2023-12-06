@@ -89,7 +89,7 @@ public class MainController {
 	
 	@GetMapping("/pizza/delete/{id}")
 	public String deletePizza(@PathVariable("id") int id) {
-		pizzaRepository.deleteById(id);
+		pizzaRepository.softDeleteById(id);
 		return "redirect:/";
 	}
 
